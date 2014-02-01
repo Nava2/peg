@@ -470,6 +470,7 @@ struct _yycontext {\n\
   yythunk  *__thunks;\n\
   int       __thunkslen;\n\
   int       __thunkpos;\n\
+  yythunk  *__curthunk;\n\
   YYSTYPE   __;\n\
   YYSTYPE  *__val;\n\
   YYSTYPE  *__vals;\n\
@@ -618,7 +619,9 @@ YY_LOCAL(void) yyDone(yycontext *yy)\n\
       yythunk *thunk= &yy->__thunks[pos];\n\
       int yyleng= thunk->end ? yyText(yy, thunk->begin, thunk->end) : thunk->begin;\n\
       yyprintf((stderr, \"DO [%d] %p %s\\n\", pos, thunk->action, yy->__text));\n\
+      yy->__curthunk = thunk;\n\
       thunk->action(yy, yy->__text, yyleng);\n\
+      yy->__curthunk = NULL;\n\
     }\n\
   yy->__thunkpos= 0;\n\
 }\n\
@@ -666,6 +669,8 @@ YY_LOCAL(void) yySet(yycontext *yy, char *text, int count)   { yy->__val[count]=
 #endif /* YY_PART */\n\
 \n\
 #define	YYACCEPT	yyAccept(yy, yythunkpos0)\n\
+#define YY_POS_BEGIN (yy->__curthunk ? yy->__curthunk->begin : yy->__begin)\n\
+#define YY_POS_END   (yy->__curthunk ? yy->__curthunk->end   : yy->__end)  \n\
 \n\
 ";
 
