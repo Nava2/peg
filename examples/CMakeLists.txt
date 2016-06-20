@@ -102,7 +102,7 @@ add_example(examples    peg accept      STRING  "abcbcdabcbcdabcbcdabcbcd")
 add_example(examples    peg dc          STRING  "  2  *3 *(3+ 4) ")
 add_example(examples    peg dcv         STRING  "a = 6;  b = 7;  a * b")
 add_example(examples    peg localpeg    STRING  "ab.ac.ad.ae.afg.afh.afg.afh.afi.afj.")
-add_dependencies(example.localpeg example.simple)
+add_dependencies(example.localpeg example.simple.generate)
 
 add_example(examples    leg wc          FILE    "wc.leg")
 add_example(examples    leg calc        STRING  "a = 6;  b = 7;  a * b")
