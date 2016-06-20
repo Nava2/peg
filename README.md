@@ -1,23 +1,23 @@
 # peg/leg &mdash; recursive-descent parser generators for C
 
-<code>peg</code> and <code>leg</code> are tools for generating recursive-descent parsers: programs that perform pattern matching on
+`peg` and `leg` are tools for generating recursive-descent parsers: programs that perform pattern matching on
 text.  They processes a Parsing Expression Grammar (PEG)[Ford 2004] to produce a program that recognises legal sentences of that grammar.
 
-<code>peg</code> processes PEGs written using the original syntax described by Ford.
+`peg` processes PEGs written using the original syntax described by Ford.
 
-<code>leg</code> processes PEGs written using slightly different syntax and conventions that are intended to make it an attractive replacement for parsers built with <code>lex</code> and <code>yacc</code>.
+`leg` processes PEGs written using slightly different syntax and conventions that are intended to make it an attractive replacement for parsers built with `lex` and `yacc`.
 
-Unlike <code>lex</code> and <code>yacc</code>, <code>peg</code> and <code>leg</code> support unlimited backtracking, provide ordered choice as a means for disambiguation, and can combine scanning (lexical analysis) and parsing (syntactic analysis) into a single activity.
+Unlike `lex` and `yacc`, `peg` and `leg` support unlimited backtracking, provide ordered choice as a means for disambiguation, and can combine scanning (lexical analysis) and parsing (syntactic analysis) into a single activity.
 
-<code>peg</code> is distributed under the MIT license.  It will not infect your project with a contagious <strike>license</strike> disease if you
-decide to modify it for your own use.  The parser generators that <code>peg</code> creates are unencumbered and you are free to use and/or
+`peg` is distributed under the MIT license.  It will not infect your project with a contagious <strike>license</strike> disease if you
+decide to modify it for your own use.  The parser generators that `peg` creates are unencumbered and you are free to use and/or
 distribute them any way you like.
 
-<code>peg</code>/<code>leg</code> is copyright (c) 2007 by Ian Piumarta.
+`peg`/`leg` is copyright (c) 2007 by Ian Piumarta.
 
 ## References
 
-* <code>peg</code>/<code>leg</code> manual page: [peg.1.html][1]
+* `peg`/`leg` manual page: [peg.1.html][1]
 
 * [Ford 2004] Bryan Ford, [*Parsing Expression Grammars: A Recognition-Based Syntactic Foundation*][2]. ACM SIGPLAN Symposium on Principles of Programming Languages (POPL), 2004.
 

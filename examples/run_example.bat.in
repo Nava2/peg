@@ -1,0 +1,10 @@
+:: Pipe the file/echo content into the new parser, put the output into the .out
+:: then diff the result and return it.
+@file_command@ | "@gen_exec_path@" | "@CAT@" > @target_name@.out
+
+"@DIFF@" @target_name@.ref @target_name@.out
+set valid=%errorlevel%
+
+"@RM@" -f @target_name@.out
+
+exit ${valid}

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "test.peg.c"
+#include "simple.peg.c"
 
 int main()
 {

@@ -418,7 +418,7 @@ static char *preamble= "\
 #define YY_RULE(T)	static T\n\
 #endif\n\
 #ifndef YY_PARSE\n\
-#define YY_PARSE(T)	T\n\
+#define YY_PARSE(T)	static T\n\
 #endif\n\
 #ifndef YYPARSE\n\
 #define YYPARSE		yyparse\n\
@@ -498,8 +498,8 @@ struct _yycontext {\n\
 #define YY_CTX_PARAM\n\
 #define YY_CTX_ARG_\n\
 #define YY_CTX_ARG\n\
-yycontext _yyctx= { 0, 0 };\n\
-yycontext *yyctx= &_yyctx;\n\
+YY_LOCAL(yycontext) _yyctx= { 0, 0 };\n\
+YY_LOCAL(yycontext) *yyctx= &_yyctx;\n\
 #ifndef YY_INPUT\n\
 #define YY_INPUT(buf, result, max_size)			\\\n\
   {							\\\n\

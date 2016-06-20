@@ -1,0 +1,18 @@
+#!@BASH@
+
+# Pipe the file/echo content into the new parser, put the output into the .out
+# then diff the result and return it.
+
+cd "@CMAKE_CURRENT_LIST_DIR@"
+
+outfile="./@target_name@.out"
+reffile="./@target_name@.ref"
+@file_command@ | @CMAKE_CURRENT_BINARY_DIR@/@gen_exec_path@ | @CAT@ > ${outfile}
+
+@DIFF@ ${reffile} ${outfile}
+valid=$? # Save the result of @DIFF@
+
+@RM@ -f @target_name@.out
+cd -
+
+exit ${valid}

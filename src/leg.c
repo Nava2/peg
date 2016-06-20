@@ -65,7 +65,7 @@
 #define YY_RULE(T)	static T
 #endif
 #ifndef YY_PARSE
-#define YY_PARSE(T)	T
+#define YY_PARSE(T)	static T
 #endif
 #ifndef YYPARSE
 #define YYPARSE		yyparse
@@ -144,8 +144,8 @@ struct _yycontext {
 #define YY_CTX_PARAM
 #define YY_CTX_ARG_
 #define YY_CTX_ARG
-yycontext _yyctx= { 0, 0 };
-yycontext *yyctx= &_yyctx;
+YY_LOCAL(yycontext) _yyctx= { 0, 0 };
+YY_LOCAL(yycontext) *yyctx= &_yyctx;
 #ifndef YY_INPUT
 #define YY_INPUT(buf, result, max_size)			\
   {							\

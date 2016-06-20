@@ -2,7 +2,7 @@
 
 #define YY_CTX_LOCAL
 
-#include "test.peg.c"
+#include "simple.peg.c"
 
 int main()
 {
