@@ -15,6 +15,15 @@ distribute them any way you like.
 
 `peg`/`leg` is copyright (c) 2007 by Ian Piumarta.
 
+## Building
+
+1. Install [CMake](https://cmake.org/)
+2. Open a command-line (Terminal on *NIX or CMD on Windows)
+3. Run: `mkdir build ; cd build`
+4. Configure project: `cmake ..`
+5. Build: `cmake --build .` 
+6. Install: `cmake --build . --target install`
+
 ## References
 
 * `peg`/`leg` manual page: [peg.1.html][1]

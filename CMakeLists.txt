@@ -37,8 +37,11 @@ set(PEGLEG_INCLUDE_DIRS ${CMAKE_CURRENT_LIST_DIR}/src ${GENERATED_SOURCE_DIR})
 
 include_directories(${PEGLEG_INCLUDE_DIRS})
 
+set(peg_peg src/peg.peg)
+set(leg_leg src/leg.leg)
+
 add_executable(peg  src/peg.c 
-                    src/peg.peg-c
+                    ${peg_peg}-c
                     ${common_src}
                     ${common_headers}
                     )
@@ -53,6 +56,42 @@ elseif("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
     set(CMAKE_C_FLAGS ${CMAKE_CXX_FLAGS} -Wno-parentheses-equality 
                                            -Wno-array-bounds)
 endif()
+
+add_custom_target(newpeg 
+                  COMMAND ${CMAKE_COMMAND} -E rename ${peg_peg}-c ${peg_peg}-c-old
+                  COMMAND peg -o ${peg_peg}-c ${peg_peg}
+                  DEPENDS peg
+                  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+                  COMMENT "Regenerating ${peg_peg}")
+
+add_custom_target(newleg 
+                  COMMAND ${CMAKE_COMMAND} -E rename src/leg.c src/leg.c-old
+                  COMMAND leg -o src/leg.c ${leg_leg}
+                  DEPENDS leg
+                  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+                  COMMENT "Regenerating ${leg_leg}")
+
+add_custom_target(new 
+                  DEPENDS newpeg newleg
+                  COMMENT "Regenerating peg and leg")
+
+add_custom_target(revert 
+                  COMMAND ${CMAKE_COMMAND} -E remove ${peg_peg}-c src/leg.c
+                  COMMAND ${CMAKE_COMMAND} -E rename ${peg_peg}-c-old ${peg_peg}-c
+                  COMMAND ${CMAKE_COMMAND} -E rename src/leg.c-old src/leg.c
+                  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+                  COMMENT "Reverting ${peg_peg}-c -> ${peg_peg}-c-old and leg.c -> leg.c-old")
+
+install(EXPORT pegleg-targets DESTINATION lib/)
+
+install(TARGETS peg leg
+        DESTINATION lib/
+        EXPORT pegleg-targets)
+
+if(UNIX)
+    install(FILES src/peg.1 
+            DESTINATION man/man1)
+endif(UNIX)
 
 if (PEGLEG_BUILD_EXAMPLES)
     include(CTest)
