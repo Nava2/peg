@@ -51,10 +51,9 @@ add_executable(leg  src/leg.c
                     )
 
 if (MSVC)
-    set(CMAKE_C_FLAGS ${CMAKE_CXX_FLAGS} /wd4102 )
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /wd4102")
 elseif("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
-    set(CMAKE_C_FLAGS ${CMAKE_CXX_FLAGS} -Wno-parentheses-equality 
-                                           -Wno-array-bounds)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-parentheses-equality -Wno-array-bounds")
 endif()
 
 add_custom_target(newpeg 

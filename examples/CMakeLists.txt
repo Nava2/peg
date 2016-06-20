@@ -50,6 +50,8 @@ function(add_example all_target generator_target target_name parse_type parse_ar
                         WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
                         COMMENT "Generating test sources: ${gen_file}")
         add_custom_target(${gen_target} DEPENDS ${gen_file})
+
+        set_source_files_properties(${gen_file} PROPERTIES GENERATED true)
     endif()
 
     set(srcs)
