@@ -13,6 +13,7 @@ addons:
     packages:
     - [cmake, cmake-data]
     - ccache
+    - ninja-build
 
 matrix:
   include: 
@@ -92,7 +93,7 @@ script:
 - mkdir build; cd build
 - |
     cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
-          -G${CMAKE_GENERATOR}
+          -G${CMAKE_GENERATOR} \
           ..
 
 - cmake --build . --target check
