@@ -1,0 +1,103 @@
+
+language: cpp
+
+git:
+    depth: 5
+
+addons: 
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test # cmake requirement
+    - george-edison55-precise-backports
+    
+    packages:
+    - [cmake, cmake-data]
+    - ccache
+
+matrix:
+  include: 
+
+    # Linux
+
+    ## Clang
+    - os: linux
+      env: CMAKE_BUILD_TYPE=Release CMAKE_GENERATOR=Ninja
+      compiler: clang
+
+    - os: linux
+      env: CMAKE_BUILD_TYPE=Debug CMAKE_GENERATOR=Ninja
+      compiler: clang
+
+    ## gcc
+    - os: linux
+      env: CMAKE_BUILD_TYPE=Debug CMAKE_GENERATOR=Ninja
+      compiler: gcc
+          
+    - os: linux
+      env: CMAKE_BUILD_TYPE=Release CMAKE_GENERATOR=Ninja
+      compiler: gcc
+        
+
+    # Mac OSX
+    - os: osx
+      osx_image: xcode7
+      compiler: clang
+      env: CMAKE_BUILD_TYPE=Debug CMAKE_GENERATOR=Ninja 
+
+    - os: osx
+      osx_image: xcode7
+      compiler: gcc
+      env: CMAKE_BUILD_TYPE=Release CMAKE_GENERATOR=Ninja
+
+    - os: osx
+      osx_image: xcode7
+      compiler: clang
+      env: CMAKE_BUILD_TYPE=Release CMAKE_GENERATOR=Ninja 
+
+    - os: osx
+      osx_image: xcode7
+      compiler: clang
+      env: CMAKE_BUILD_TYPE=Release CMAKE_GENERATOR=Xcode  
+
+  allow_failures:
+    - os: osx
+      compiler: clang
+
+cache:
+  directories:
+    - $HOME/.ccache
+
+before_install:
+- |
+    case `uname` in 
+        Darwin)     export OS_NAME="osx"    ;;
+        Linux)      export OS_NAME="linux"  ;;
+    esac
+
+    if [[ ${OS_NAME} == osx ]]; then
+        brew install cmake ninja
+    fi
+
+script:
+
+- |
+  cmake --version
+  ninja --version 
+
+  echo "CC=${CC}"
+  $CC --version
+  echo "CXX=${CXX}"
+  $CXX --version
+
+- mkdir build; cd build
+- |
+    cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
+          -G${CMAKE_GENERATOR}
+          ..
+
+- cmake --build . --target check
+
+notifications:
+    email:
+        on_success: change
+        on_failure: change
