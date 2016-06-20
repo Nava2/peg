@@ -77,10 +77,10 @@ add_custom_target(revert
                   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
                   COMMENT "Reverting ${peg_peg}-c -> ${peg_peg}-c-old and leg.c -> leg.c-old")
 
-install(EXPORT pegleg-targets DESTINATION lib/)
+install(EXPORT pegleg-targets DESTINATION lib/cmake)
 
 install(TARGETS peg leg
-        DESTINATION lib/
+        DESTINATION bin/
         EXPORT pegleg-targets)
 
 if(UNIX)
