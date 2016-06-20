@@ -33,10 +33,6 @@ endif()
 set(GENERATED_SOURCE_DIR ${CMAKE_BINARY_DIR}/src-gen)
 set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${CMAKE_BINARY_DIR}/src-gen)
 
-set(PEGLEG_INCLUDE_DIRS ${CMAKE_CURRENT_LIST_DIR}/src ${GENERATED_SOURCE_DIR})
-
-include_directories(${PEGLEG_INCLUDE_DIRS})
-
 set(peg_peg src/peg.peg)
 set(leg_leg src/leg.leg)
 
@@ -53,7 +49,7 @@ add_executable(leg  src/leg.c
 if (MSVC)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /wd4102")
 elseif("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-parentheses-equality -Wno-array-bounds")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-parentheses-equality -Wno-array-bounds -Wno-error=unused-command-line-argument")
 endif()
 
 add_custom_target(newpeg 
