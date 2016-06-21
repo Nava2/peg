@@ -4,6 +4,16 @@ project(pegleg C)
 option(PEGLEG_BUILD_EXAMPLES    "Build the examples and test them." ON)
 option(USE_CCACHE               "Use `ccache` if available"         ON)
 
+if (NOT CMAKE_BUILD_TYPE)
+    if(CMAKE_GENERATOR STREQUAL "Xcode")
+        set(CMAKE_BUILD_TYPE "Debug")
+    else()
+        set(CMAKE_BUILD_TYPE "Release")
+    endif()
+    
+    message(STATUS "No build type selected, default to ${CMAKE_BUILD_TYPE}")
+endif()
+
 if (USE_CCACHE)
     find_program(CCACHE_FOUND ccache)
 

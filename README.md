@@ -22,6 +22,7 @@ distribute them any way you like.
 3. Run: `mkdir build ; cd build`
 4. Configure project: `cmake ..`
 5. Build: `cmake --build .` 
+6. Test: `cmake --build . --target check`
 6. Install: `cmake --build . --target install`
 
 ## References
